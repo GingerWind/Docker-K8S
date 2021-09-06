@@ -26,5 +26,6 @@ RUN curl https://jdbc.postgresql.org/download/postgresql-42.1.1.jar --output /tm
     mv /tmp/postgresql-42.1.1.jar /opt/atlassian-jira-software-8.15.1-standalone/lib/postgresql-42.1.1.jar
 
 COPY "atlassian-agent.jar" /opt/atlassian-agent.jar
+COPY "mysql-connector-java-5.1.25-bin.jar" /opt/atlassian-jira-software-8.15.1-standalone/atlassian-jira/WEB-INF/lib/mysql-connector-java-5.1.25-bin.jar
 
 ENTRYPOINT ["/opt/atlassian-jira-software-8.15.1-standalone/bin/catalina.sh", "run"]
