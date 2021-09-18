@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jira8
+  name: jira8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jira8
+  template:
+    metadata:
+      labels:
+        app: jira8
+      name: jira8
+    spec:
+      containers:
+        - name: jira8
+          image: "swr.cn-north-4.myhuaweicloud.com/forwardx/jira:8.15.1"
+          env:
+          - name: JAVA_OPTS
+            value: "-javaagent:/opt/atlassian-agent.jar"
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2G"
+          volumeMounts:
+            - name: pvc-328a35a1-f2bf-4011-9908-9070cfb80021
+              mountPath: /opt/jira-home
+      volumes:
+        - name: pvc-328a35a1-f2bf-4011-9908-9070cfb80021
+          persistentVolumeClaim:
+            claimName: cce-evs-jira
+      imagePullSecrets:
+        - name: default-secret
